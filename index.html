@@ -309,31 +309,41 @@
         </div>
       </div>
 
-      <form class="contact-form reveal delay-1" action="https://formspree.io/f/mgoqowab" method="POST">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input id="name" name="name" type="text" placeholder="Your name" required />
-        </div>
+      <form class="contact-form reveal delay-1" action="https://api.web3forms.com/submit" method="POST">
+  <!-- Web3Forms access key -->
+  <input type="hidden" name="access_key" value="f8b7705e-8680-4ac5-9f99-e3366e99505b">
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="your@email.com" required />
-        </div>
+  <!-- Optional: email subject you receive -->
+  <input type="hidden" name="subject" value="New website enquiry">
 
-        <div class="form-group">
-          <label for="company">Company / Organisation</label>
-          <input id="company" name="company" type="text" placeholder="Company name" />
-        </div>
+  <!-- Optional: redirect after successful submit -->
+  <input type="hidden" name="redirect" value="https://yourwebsite.com/thank-you.html">
 
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="6" placeholder="Tell us what you need to protect..." required></textarea>
-        </div>
+  <!-- Optional: bot/spam protection -->
+  <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-        <button class="button button-primary" type="submit">Send Enquiry</button>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" placeholder="Your name" required />
+  </div>
 
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" placeholder="your@email.com" required />
+  </div>
 
-      </form>
+  <div class="form-group">
+    <label for="company">Company / Organisation</label>
+    <input id="company" name="company" type="text" placeholder="Company name" />
+  </div>
+
+  <div class="form-group">
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="6" placeholder="Tell us what you need to protect..." required></textarea>
+  </div>
+
+  <button class="button button-primary" type="submit">Send Enquiry</button>
+</form>
     </section>
   </main>
 
