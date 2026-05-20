@@ -309,18 +309,11 @@
         </div>
       </div>
 
-      <form class="contact-form reveal delay-1" action="https://api.web3forms.com/submit" method="POST">
-  <!-- Web3Forms access key -->
+  <form id="contactForm" class="contact-form reveal delay-1">
   <input type="hidden" name="access_key" value="f8b7705e-8680-4ac5-9f99-e3366e99505b">
-
-  <!-- Optional: email subject you receive -->
   <input type="hidden" name="subject" value="New website enquiry">
 
-  <!-- Optional: redirect after successful submit -->
-  <input type="hidden" name="redirect" value="https://yourwebsite.com/thank-you.html">
-
-  <!-- Optional: bot/spam protection -->
-  <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+  <input type="checkbox" name="botcheck" style="display: none;">
 
   <div class="form-group">
     <label for="name">Name</label>
@@ -343,6 +336,8 @@
   </div>
 
   <button class="button button-primary" type="submit">Send Enquiry</button>
+
+  <p id="formStatus" style="display: none; margin-top: 1rem;"></p>
 </form>
     </section>
   </main>
