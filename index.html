@@ -54,7 +54,7 @@
         const result = await response.json();
 
         if (response.ok && result.success) {
-          status.textContent = "Thanks, your enquiry has been sent successfully.";
+          status.textContent = "Your enquiry has been sent successfully.";
           form.reset();
         } else {
           status.textContent = result.message || "Something went wrong. Please try again.";
