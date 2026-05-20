@@ -25,34 +25,49 @@
 </head>
 
 <script>
-  const form = document.getElementById("contactForm");
-  const status = document.getElementById("formStatus");
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("formStatus");
+    const submitButton = document.getElementById("submitButton");
 
-  form.addEventListener("submit", async function (event) {
-    event.preventDefault();
-
-    status.style.display = "block";
-    status.textContent = "Sending...";
-
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        status.textContent = "Thanks, your enquiry has been sent successfully.";
-        form.reset();
-      } else {
-        status.textContent = "Something went wrong. Please try again.";
-      }
-    } catch (error) {
-      status.textContent = "Something went wrong. Please try again.";
+    if (!form || !status || !submitButton) {
+      console.error("Contact form setup error: form, status message, or submit button not found.");
+      return;
     }
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      status.style.display = "block";
+      status.textContent = "Sending...";
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          status.textContent = "Thanks, your enquiry has been sent successfully.";
+          form.reset();
+        } else {
+          status.textContent = result.message || "Something went wrong. Please try again.";
+          console.error("Web3Forms error:", result);
+        }
+      } catch (error) {
+        status.textContent = "Something went wrong. Please try again.";
+        console.error("Network/form error:", error);
+      }
+
+      submitButton.disabled = false;
+      submitButton.textContent = "Send Enquiry";
+    });
   });
 </script>
   
@@ -342,24 +357,25 @@
       </div>
 
   <form id="contactForm" class="contact-form reveal delay-1">
-  <input type="hidden" name="access_key" value="f8b7705e-8680-4ac5-9f99-e3366e99505b">
+  <input type="hidden" name="access_key" value="58aa4a6f-c213-499a-a992-148606f380b7">
   <input type="hidden" name="subject" value="New website enquiry">
 
+  <!-- Spam protection -->
   <input type="checkbox" name="botcheck" style="display: none;">
 
   <div class="form-group">
     <label for="name">Name</label>
-    <input id="name" name="name" type="text" placeholder="Your name" required />
+    <input id="name" name="name" type="text" placeholder="Your name" required>
   </div>
 
   <div class="form-group">
     <label for="email">Email</label>
-    <input id="email" name="email" type="email" placeholder="your@email.com" required />
+    <input id="email" name="email" type="email" placeholder="your@email.com" required>
   </div>
 
   <div class="form-group">
     <label for="company">Company / Organisation</label>
-    <input id="company" name="company" type="text" placeholder="Company name" />
+    <input id="company" name="company" type="text" placeholder="Company name">
   </div>
 
   <div class="form-group">
@@ -367,7 +383,7 @@
     <textarea id="message" name="message" rows="6" placeholder="Tell us what you need to protect..." required></textarea>
   </div>
 
-  <button class="button button-primary" type="submit">Send Enquiry</button>
+  <button id="submitButton" class="button button-primary" type="submit">Send Enquiry</button>
 
   <p id="formStatus" style="display: none; margin-top: 1rem;"></p>
 </form>
