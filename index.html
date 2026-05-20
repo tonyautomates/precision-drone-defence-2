@@ -24,6 +24,38 @@
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
 
+<script>
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("formStatus");
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    status.style.display = "block";
+    status.textContent = "Sending...";
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        status.textContent = "Thanks, your enquiry has been sent successfully.";
+        form.reset();
+      } else {
+        status.textContent = "Something went wrong. Please try again.";
+      }
+    } catch (error) {
+      status.textContent = "Something went wrong. Please try again.";
+    }
+  });
+</script>
+  
 <body>
   <div class="noise"></div>
   <div class="cursor-glow" id="cursorGlow"></div>
